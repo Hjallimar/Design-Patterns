@@ -1,0 +1,99 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CharacterObserver : MonoBehaviour
+{
+    private static CharacterObserver instance = null;
+
+    protected int currentIndex { get; set; } = 0;
+
+    [SerializeField] private List<CharacterController> controllableCharacters = new List<CharacterController>();
+
+    protected float speed { get; set; } = 1f;
+
+    [SerializeField] private Image targetIndicator = null;
+
+    private Coroutine indicator = default;
+
+    private int characterIndex = 0;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        instance.characterIndex = -1;
+    }
+
+    private void Start()
+    {
+        ChangeCharacter();
+    }
+
+    public void PerformAbility(int i)
+    {
+        instance.controllableCharacters[instance.currentIndex].UseAction(i);
+        ChangeCharacter();
+    }
+
+    public void UndoAction()
+    {
+        instance.controllableCharacters[instance.currentIndex].UndoAction();
+        instance.characterIndex -= 2;
+        if(instance.characterIndex < -1)
+        {
+            instance.characterIndex = -1;
+        }
+        ChangeCharacter();
+    }
+
+    public void ExecuteCommands()
+    {
+        PlayerCommand.ExecuteCommands();
+        PlaningPhase.ClearList();
+    }
+
+    public static void ChangeCharacter()
+    {
+        instance.characterIndex++;
+        if(instance.characterIndex > instance.controllableCharacters.Count - 1)
+        {
+            PlaningPhase.ChangeToExecute();
+            instance.StopCoroutine(instance.indicator);
+            instance.targetIndicator.enabled = false;
+        }
+        else
+        {
+            instance.targetIndicator.enabled = true;
+            if (instance.indicator != null)
+            {
+                instance.StopCoroutine(instance.indicator);
+            }
+            Transform target = instance.controllableCharacters[instance.characterIndex].transform;
+            Debug.Log("Target is now " + target.name);
+            instance.indicator = instance.StartCoroutine(instance.Indicator(target));
+            PlaningPhase.ChangeToNextCharacter(instance.controllableCharacters[instance.characterIndex]);
+        }
+    }
+
+    private IEnumerator Indicator(Transform target)
+    {
+        Vector3 start = Vector3.up * 1.5f;
+        Vector3 end = Vector3.up * 2.5f;
+        float timer = 0f;
+        float adjust = 1f;
+        while (true)
+        {
+            timer += Time.deltaTime * adjust;
+            instance.targetIndicator.transform.position = target.position + Vector3.Lerp(start, end, timer * 2);
+            yield return new WaitForSeconds(Time.deltaTime);
+            if(timer > 0.5f || timer < 0)
+            {
+                adjust *= -1;
+            }
+        }
+    }
+}
