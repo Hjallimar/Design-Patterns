@@ -3,30 +3,36 @@
 public class PlayerMoveCommand : Command
 {
     protected Transform playerTrans = default;
-    protected Vector3 playerMove = Vector3.zero;
+    protected Vector3 startPos = Vector3.zero;
+    protected Vector3 endPos = Vector3.zero;
     protected float timer = 0;
     public virtual void AssignMove(Transform performer, Vector3 direction, float distance)
     {
         playerTrans = performer;
-        playerMove = direction.normalized * distance;
+        startPos = performer.position;
+        endPos = startPos + direction.normalized * distance;
     }
 
-    public virtual void AssignMove(Transform performer, Vector3 target)
+    public virtual void AssignMove(Transform performer, Vector3 origin, Vector3 target)
     {
         playerTrans = performer;
-        float dist = Vector3.Magnitude(performer.position - target);
-        Vector3 dirr =  target - performer.position;
-        playerMove = dirr.normalized * dist;
+        startPos = origin;
+        endPos = target;
     }
 
     public override void ExecuteCommand()
     {
-        Debug.Log("My player trans is: " + playerTrans.name);
-        playerTrans.transform.position += playerMove;
+        timer += Time.deltaTime;
+        playerTrans.position = Vector3.Lerp(startPos, endPos, timer);
+        if(timer > 1)
+        {
+            CommandCompleted();
+        }
     }
 
     public override void CommandCompleted()
     {
+        timer = 0f;
         PlayerCommand.CommandComplete();
     }
 }

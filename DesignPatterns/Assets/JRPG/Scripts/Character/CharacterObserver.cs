@@ -35,15 +35,21 @@ public class CharacterObserver : MonoBehaviour
 
     public void PerformAbility(int i)
     {
-        instance.controllableCharacters[instance.currentIndex].UseAction(i);
+        Debug.Log(instance.controllableCharacters[instance.characterIndex].transform.name + "is getting its action called");
+        instance.controllableCharacters[instance.characterIndex].UseAction(i);
         ChangeCharacter();
     }
 
     public void UndoAction()
     {
-        instance.controllableCharacters[instance.currentIndex].UndoAction();
-        instance.characterIndex -= 2;
-        if(instance.characterIndex < -1)
+        instance.characterIndex -= 1;
+        if (instance.characterIndex < 0)
+        {
+            instance.characterIndex = 0;
+        }
+        instance.controllableCharacters[instance.characterIndex].UndoAction();
+        instance.characterIndex -= 1;
+        if (instance.characterIndex < -1)
         {
             instance.characterIndex = -1;
         }
@@ -73,7 +79,6 @@ public class CharacterObserver : MonoBehaviour
                 instance.StopCoroutine(instance.indicator);
             }
             Transform target = instance.controllableCharacters[instance.characterIndex].transform;
-            Debug.Log("Target is now " + target.name);
             instance.indicator = instance.StartCoroutine(instance.Indicator(target));
             PlaningPhase.ChangeToNextCharacter(instance.controllableCharacters[instance.characterIndex]);
         }
@@ -95,5 +100,12 @@ public class CharacterObserver : MonoBehaviour
                 adjust *= -1;
             }
         }
+    }
+
+    public static void ResetTurn()
+    {
+        Debug.Log("Turn reset");
+        instance.characterIndex = -1;
+        ChangeCharacter();
     }
 }

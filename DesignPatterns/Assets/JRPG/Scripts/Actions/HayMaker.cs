@@ -5,8 +5,9 @@ public class HayMaker : MeeleAction
 {
     public override void ActivateAction()
     {
+        originPosition = Performer.position;
         PlayerMoveCommand moveCommand = new PlayerMoveCommand();
-        moveCommand.AssignMove(Performer, Target.position);
+        moveCommand.AssignMove(Performer, Performer.position,Target.position);
         PlayerCommand.AddCommand(moveCommand);
 
         AttackCommand attackCommand = new AttackCommand();
@@ -14,7 +15,7 @@ public class HayMaker : MeeleAction
         PlayerCommand.AddCommand(attackCommand);
 
         PlayerMoveCommand returnCommand = new PlayerMoveCommand();
-        returnCommand.AssignMove(Performer, originPosition);
+        returnCommand.AssignMove(Performer, Target.position, originPosition);
         PlayerCommand.AddCommand(returnCommand);
     }
 

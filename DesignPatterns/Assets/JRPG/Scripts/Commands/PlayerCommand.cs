@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCommand
+public class PlayerCommand : MonoBehaviour
 {
     private static PlayerCommand instance = null;
 
@@ -16,8 +16,18 @@ public class PlayerCommand
         } 
     }
 
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
+
     private List<Command> playerCommands = new List<Command>();
-    private bool comandIsDone = false;
+    private bool executeCommands = false;
+    private int executeIndex = 0;
+    private Coroutine executeCorutine = default;
 
     public static void AddCommand(Command newCommand)
     {
@@ -34,35 +44,43 @@ public class PlayerCommand
 
     public static void ExecuteCommands()
     {
-        if(Instance.playerCommands.Count > 0)
+        if (!Instance.executeCommands)
         {
-            foreach (Command command in Instance.playerCommands)
-            {
-                command.ExecuteCommand();
-            }
-            Instance.playerCommands.Clear();
+            Instance.executeCommands = true;
+            Instance.executeIndex = 0;
+            Instance.executeCorutine = Instance.StartCoroutine(ExecuteMiStuffs());
+        }
+    }
+
+    private static IEnumerator ExecuteMiStuffs()
+    {
+        Debug.Log("we got'em");
+        while (Instance.executeCommands)
+        {
+            Execute();
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 
     public static void CommandComplete()
     {
-        Instance.comandIsDone = true;
+        Instance.executeIndex++;
     }
 
-    private static IEnumerator Execute()
+    private static void Execute()
     {
-        int i = 0;
-        foreach(Command command in Instance.playerCommands)
+        if (Instance.executeIndex >= Instance.playerCommands.Count)
         {
-            while (!Instance.comandIsDone)
-            {
-                command.ExecuteCommand();
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
-            Instance.comandIsDone = false;
-            i++;
+            Instance.executeCommands = false;
+            Instance.executeIndex = 0;
+            Instance.playerCommands.Clear();
+            CharacterObserver.ResetTurn();
         }
+        else
+        {
+            Instance.playerCommands[Instance.executeIndex].ExecuteCommand();
+        }
+        
 
-        Instance.playerCommands.Clear();
     }
 }
