@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2223204595901745890}
-  - component: {fileID: 2223204595901745895}
-  - component: {fileID: 2223204595901745888}
-  - component: {fileID: 2223204595901745889}
   - component: {fileID: 2223204595901745894}
+  - component: {fileID: 1638990068945555658}
   m_Layer: 0
   m_Name: Berserker
   m_TagString: Untagged
@@ -35,68 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2223204595901745895
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223204595901745891}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2223204595901745888
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223204595901745891}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2223204595901745889
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2223204595901745891}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2223204595901745894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,13 +46,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  heroName: Sphere
+  heroName: Berserker
   health: 50
   profile: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   actions:
   - {fileID: 11400000, guid: aac51a51069bb7242aec6b925c4f018e, type: 2}
   - {fileID: 11400000, guid: 6421a79ac6a31b942a74618382cda461, type: 2}
   - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
+  animator: {fileID: 8697459648342678493}
+--- !u!136 &1638990068945555658
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223204595901745891}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &1741675861948598893
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7184525510939308856, guid: ae291f65123b35a45893ece8492c178d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7184525510939308856, guid: ae291f65123b35a45893ece8492c178d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -250,6 +201,11 @@ PrefabInstance:
 --- !u!4 &8697459648335492123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7184525510939308856, guid: ae291f65123b35a45893ece8492c178d, type: 3}
+  m_PrefabInstance: {fileID: 1947554617354110755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8697459648342678493 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7184525510948560126, guid: ae291f65123b35a45893ece8492c178d, type: 3}
   m_PrefabInstance: {fileID: 1947554617354110755}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8697459648335492583 stripped

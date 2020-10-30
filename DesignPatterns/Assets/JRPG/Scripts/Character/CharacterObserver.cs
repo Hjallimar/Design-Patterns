@@ -71,6 +71,10 @@ public class CharacterObserver : MonoBehaviour
             instance.StopCoroutine(instance.indicator);
             instance.targetIndicator.enabled = false;
         }
+        else if (!instance.controllableCharacters[instance.characterIndex].Alive())
+        {
+            ChangeCharacter();
+        }
         else
         {
             instance.targetIndicator.enabled = true;

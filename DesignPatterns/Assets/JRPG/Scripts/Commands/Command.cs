@@ -2,5 +2,5 @@
 {
     public abstract void ExecuteCommand();
 
-    public abstract void CommandCompleted();
+    protected abstract void CommandCompleted();
 }
