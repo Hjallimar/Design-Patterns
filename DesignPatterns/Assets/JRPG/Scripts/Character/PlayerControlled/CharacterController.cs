@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour, IDamageable
     [SerializeField] private CharacterAction[] actions = new CharacterAction[3];
     CharacterAction usedAction = null;
 
-    public void onEnable()
+    public void Start()
     {
         PlaningPhase.AssignHero(heroName, health);
     }
@@ -21,7 +21,6 @@ public class CharacterController : MonoBehaviour, IDamageable
         index = index % (actions.Length - 1);
         usedAction = actions[index];
         usedAction.Performer = transform;
-        //Debug.Log("Used action by " + transform.name + " and performer is " + usedAction.Performer.name);
         usedAction.Target = target.transform;
         usedAction.ActivateAction();
         PlaningPhase.ActionUsed(usedAction.ActionName);

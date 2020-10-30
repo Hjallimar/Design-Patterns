@@ -50,6 +50,7 @@ public class PlaningPhase : MonoBehaviour
         instance.currentCharacter = character;
         UpdateActionNames();
         instance.heroPortrait.sprite = instance.currentCharacter.GetProfile();
+        instance.undo.SetActive(true);
     }
 
     public static void ChangeToExecute()
@@ -96,6 +97,7 @@ public class PlaningPhase : MonoBehaviour
 
     public static void ClearList()
     {
+        instance.undo.SetActive(false);
         instance.usedActions.Clear();
         instance.actions.text = "";
     }
@@ -106,6 +108,7 @@ public class PlaningPhase : MonoBehaviour
         {
             instance.activeHeroes.Add(name);
             int i = instance.activeHeroes.IndexOf(name);
+            Debug.Log(name);
             instance.nameFrames[i].text = name;
             instance.healthBars[i].maxValue = health;
             instance.healthBars[i].value = health;
