@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +7,8 @@ using UnityEngine.UI;
 public class CharacterObserver : MonoBehaviour
 {
     private static CharacterObserver instance = null;
+
+    public static Action Execute = delegate { };
 
     protected int currentIndex { get; set; } = 0;
 
@@ -58,6 +61,7 @@ public class CharacterObserver : MonoBehaviour
 
     public void ExecuteCommands()
     {
+        Execute();
         PlayerCommand.ExecuteCommands();
         PlaningPhase.ClearList();
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,24 +7,26 @@ public class PlayerCommand : MonoBehaviour
 {
     private static PlayerCommand instance = null;
 
-    private static PlayerCommand Instance { 
-        get {
+    private static PlayerCommand Instance {
+        get
+        {
             if (instance == null)
             {
                 instance = new PlayerCommand();
             }
             return instance;
-        } 
+        }
     }
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
     }
 
+    public static Action ExecutionComplete = delegate{};
     private List<Command> playerCommands = new List<Command>();
     private bool executeCommands = false;
     private int executeIndex = 0;
@@ -74,13 +77,12 @@ public class PlayerCommand : MonoBehaviour
             Instance.executeCommands = false;
             Instance.executeIndex = 0;
             Instance.playerCommands.Clear();
+            ExecutionComplete();
             CharacterObserver.ResetTurn();
         }
         else
         {
             Instance.playerCommands[Instance.executeIndex].ExecuteCommand();
         }
-        
-
     }
 }
