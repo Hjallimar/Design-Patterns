@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2223204595901745890}
   - component: {fileID: 2223204595901745894}
   - component: {fileID: 1638990068945555658}
+  - component: {fileID: 8881285240313255291}
   m_Layer: 0
   m_Name: Berserker
   m_TagString: Untagged
@@ -50,8 +51,8 @@ MonoBehaviour:
   health: 50
   profile: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   actions:
-  - {fileID: 11400000, guid: aac51a51069bb7242aec6b925c4f018e, type: 2}
-  - {fileID: 11400000, guid: 6421a79ac6a31b942a74618382cda461, type: 2}
+  - {fileID: 11400000, guid: db3788bfb13646d4883687792bb1e33e, type: 2}
+  - {fileID: 11400000, guid: dd5106c6a795fdb4ebd47a21c357238c, type: 2}
   - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
   animator: {fileID: 8697459648342678493}
 --- !u!136 &1638990068945555658
@@ -68,6 +69,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8881285240313255291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223204595901745891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf18c29b6ae72184883f39c7e4038542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8697459648342678493}
 --- !u!1001 &1741675861948598893
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VR;
 
 public class CharacterObserver : MonoBehaviour
 {
@@ -36,6 +37,28 @@ public class CharacterObserver : MonoBehaviour
         ChangeCharacter();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            DealDamage(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            DealDamage(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            DealDamage(2);
+        }
+    }
+
+    private void DealDamage(int i) 
+    {
+        CharacterController target = instance.controllableCharacters[i];
+        target.TakeDamage(10f);
+    }
+
     public void PerformAbility(int i)
     {
         Debug.Log(instance.controllableCharacters[instance.characterIndex].transform.name + "is getting its action called");
@@ -63,7 +86,7 @@ public class CharacterObserver : MonoBehaviour
     {
         Execute();
         PlayerCommand.ExecuteCommands();
-        PlaningPhase.ClearList();
+        PlaningUI.ClearList();
     }
 
     public static void ChangeCharacter()
@@ -71,7 +94,7 @@ public class CharacterObserver : MonoBehaviour
         instance.characterIndex++;
         if(instance.characterIndex > instance.controllableCharacters.Count - 1)
         {
-            PlaningPhase.ChangeToExecute();
+            PlaningUI.ChangeToExecute();
             instance.StopCoroutine(instance.indicator);
             instance.targetIndicator.enabled = false;
         }
@@ -88,7 +111,7 @@ public class CharacterObserver : MonoBehaviour
             }
             Transform target = instance.controllableCharacters[instance.characterIndex].transform;
             instance.indicator = instance.StartCoroutine(instance.Indicator(target));
-            PlaningPhase.ChangeToNextCharacter(instance.controllableCharacters[instance.characterIndex]);
+            PlaningUI.ChangeToNextCharacter(instance.controllableCharacters[instance.characterIndex]);
         }
     }
 

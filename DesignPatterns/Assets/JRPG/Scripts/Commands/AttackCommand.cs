@@ -5,12 +5,12 @@ public class AttackCommand : Command
 {
     protected float damage = 0f;
     protected GameObject target = default;
+    protected GameObject performer = null;
 
     protected string trigger = "";
     protected bool animationstarted = false;
     protected float animationTimer = 0f;
     protected float halftime = 0f;
-    protected Animator animator = null;
 
     public void AssignCommand(float dmg, GameObject enemy)
     {
@@ -18,9 +18,9 @@ public class AttackCommand : Command
         target = enemy;
     }
 
-    public void AssignAnimation(Animator anim, string trigger, float timer)
+    public void AssignAnimation(GameObject performer, string trigger, float timer)
     {
-        animator = anim;
+        this.performer = performer;
         this.trigger = trigger;
         animationTimer = timer;
     }
@@ -29,7 +29,8 @@ public class AttackCommand : Command
         animationTimer -= Time.deltaTime;
         if (!animationstarted)
         {
-            animator.SetTrigger(trigger);
+            EventInfo ei = new EventInfo(performer, trigger);
+            AnimationEventController.SetAnimTrigger(ei);
             animationstarted = true;
         }
         else if(animationTimer < 0)

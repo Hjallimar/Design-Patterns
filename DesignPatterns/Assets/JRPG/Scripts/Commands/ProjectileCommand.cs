@@ -11,6 +11,7 @@ public class ProjectileCommand : Command
     private bool active = false;
     private GameObject myProjectile;
     private Vector3 startPos;
+    private Vector3 heighReglation = Vector3.up;
     private float travelTime = 0f;
 
     public override void ExecuteCommand()
@@ -27,7 +28,7 @@ public class ProjectileCommand : Command
         else
         {
             travelTime += Time.deltaTime * SpeedModifier;
-            myProjectile.transform.position = Vector3.Lerp(startPos, Target.position, travelTime);
+            myProjectile.transform.position = Vector3.Lerp(startPos + heighReglation, Target.position + heighReglation, travelTime);
             if(travelTime > 1)
             {
                 CommandCompleted();

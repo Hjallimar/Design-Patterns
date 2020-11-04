@@ -8,14 +8,12 @@ public class CharacterController : MonoBehaviour, IDamageable
     [SerializeField] private float health = 50;
     [SerializeField] private Sprite profile = null;
     [SerializeField] private CharacterAction[] actions = new CharacterAction[3];
-    [SerializeField] private Animator animator = null;
     CharacterAction usedAction = null;
     protected bool aliveStatus = true;
 
     public void Start()
     {
-        PlaningPhase.AssignHero(heroName, health);
-        animator.SetBool("Idel", true);
+        PlaningUI.AssignHero(heroName, health);
     }
 
     public void UseAction(int index)
@@ -25,12 +23,7 @@ public class CharacterController : MonoBehaviour, IDamageable
         usedAction.Performer = this;
         usedAction.Target = target.transform;
         usedAction.ActivateAction();
-        PlaningPhase.ActionUsed(usedAction.ActionName);
-    }
-
-    public Animator GetAnimator()
-    {
-        return animator;
+        PlaningUI.ActionUsed(usedAction.ActionName);
     }
 
     public Sprite GetProfile()
@@ -42,7 +35,7 @@ public class CharacterController : MonoBehaviour, IDamageable
     {
         if(usedAction != null)
         {
-            PlaningPhase.ActionUndo();
+            PlaningUI.ActionUndo();
             usedAction.UndoAction();
             usedAction = null;
         }
@@ -64,14 +57,16 @@ public class CharacterController : MonoBehaviour, IDamageable
         if(health < 0)
         {
             health = 0;
+            Die();
         }
-        PlaningPhase.UpdatePlayerHealth(heroName, health);
+        PlaningUI.UpdatePlayerHealth(heroName, health);
     }
 
     public void Die()
     {
         aliveStatus = false;
-        animator.SetTrigger("Die");
+        EventInfo ei = new EventInfo(gameObject, "Die");
+        AnimationEventController.SetAnimTrigger(ei);
     }
 
     public bool Alive()

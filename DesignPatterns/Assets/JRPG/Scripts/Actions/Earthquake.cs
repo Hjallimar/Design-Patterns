@@ -12,7 +12,7 @@ public class Earthquake : MeeleAction
 
         AttackCommand attackCommand = new AttackCommand();
         attackCommand.AssignCommand(Damage, Target.gameObject);
-        attackCommand.AssignAnimation(Performer.GetAnimator(), animationTrigger, actionDuration);
+        attackCommand.AssignAnimation(Performer.gameObject, animationTrigger, actionDuration);
         PlayerCommand.AddCommand(attackCommand);
 
         PlayerMoveCommand returnCommand = new PlayerMoveCommand();

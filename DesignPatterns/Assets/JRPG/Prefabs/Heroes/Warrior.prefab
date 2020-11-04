@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1911372635464218952}
   - component: {fileID: 1911372635464218956}
   - component: {fileID: 2916722594385631118}
+  - component: {fileID: 3759819744042249462}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Untagged
@@ -51,9 +52,8 @@ MonoBehaviour:
   profile: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   actions:
   - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
-  - {fileID: 11400000, guid: aac51a51069bb7242aec6b925c4f018e, type: 2}
-  - {fileID: 11400000, guid: 6421a79ac6a31b942a74618382cda461, type: 2}
-  animator: {fileID: 6629360362673216677}
+  - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
+  - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
 --- !u!136 &2916722594385631118
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -68,6 +68,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3759819744042249462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911372635464218953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf18c29b6ae72184883f39c7e4038542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6629360362673216677}
 --- !u!1001 &3108505249225469127
 PrefabInstance:
   m_ObjectHideFlags: 0

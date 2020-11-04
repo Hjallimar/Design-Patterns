@@ -6,21 +6,20 @@ public class PlayerMoveCommand : Command
     protected Vector3 startPos = Vector3.zero;
     protected Vector3 endPos = Vector3.zero;
     protected float timer = 0;
-    protected Animator animator;
 
     public virtual void AssignMove(CharacterController performer, Vector3 origin, Vector3 target)
     {
         playerTrans = performer.transform;
         startPos = origin;
         endPos = target;
-        animator = performer.GetAnimator();
     }
 
     public override void ExecuteCommand()
     {
         timer += Time.deltaTime * 0.7f;
         ChangeRotation(endPos, playerTrans.position);
-        animator.SetBool("Run", true);
+        AnimationBoolEvent abe = new AnimationBoolEvent(playerTrans.gameObject, "Run", true);
+        AnimationEventController.SetAnimBool(abe);
         playerTrans.position = Vector3.Lerp(startPos, endPos, timer);
         if(timer > 1)
         {
@@ -31,9 +30,10 @@ public class PlayerMoveCommand : Command
     protected override void CommandCompleted()
     {
         timer = 0f;
-        animator.SetBool("Run", false);
         PlayerCommand.CommandComplete();
-        ChangeRotation(playerTrans.position, endPos);
+        AnimationBoolEvent abe = new AnimationBoolEvent(playerTrans.gameObject, "Run", false);
+        AnimationEventController.SetAnimBool(abe);
+        ChangeRotation(startPos, endPos);
     }
 
     protected void ChangeRotation(Vector3 pos1, Vector3 pos2)

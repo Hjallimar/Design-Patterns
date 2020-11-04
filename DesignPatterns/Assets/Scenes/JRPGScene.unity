@@ -2335,7 +2335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.07328953}
-  m_AnchoredPosition: {x: 0, y: -0.074279785}
+  m_AnchoredPosition: {x: 0, y: -0.07426453}
   m_SizeDelta: {x: 0, y: -0.14859009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166449323
@@ -3249,7 +3249,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1585079886}
-  - component: {fileID: 1585079887}
   - component: {fileID: 1585079888}
   - component: {fileID: 1585079889}
   - component: {fileID: 1585079890}
@@ -3275,39 +3274,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1585079887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585079885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea40e87006e67b4e9da975103992481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  execute: {fileID: 1905675606}
-  undo: {fileID: 36725469}
-  actions: {fileID: 356662506}
-  heroPortrait: {fileID: 189105669}
-  buttonNames:
-  - {fileID: 1221777745}
-  - {fileID: 1371669922}
-  - {fileID: 2116435702}
-  actionButtons:
-  - {fileID: 100410218}
-  - {fileID: 700950155}
-  - {fileID: 415725644}
-  healthBars:
-  - {fileID: 835033340}
-  - {fileID: 1037623192}
-  - {fileID: 1823577148}
-  nameFrames:
-  - {fileID: 1294055125}
-  - {fileID: 1453924298}
-  - {fileID: 1517587954}
-  activeHeroes: []
 --- !u!114 &1585079888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3364,6 +3330,7 @@ GameObject:
   - component: {fileID: 1622649708}
   - component: {fileID: 1622649707}
   - component: {fileID: 1622649706}
+  - component: {fileID: 1622649710}
   m_Layer: 5
   m_Name: Game UI
   m_TagString: Untagged
@@ -3453,6 +3420,39 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1622649710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622649705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5b7d9a67c70de74782072a37bed6a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  execute: {fileID: 1905675606}
+  undo: {fileID: 36725469}
+  actions: {fileID: 356662506}
+  heroPortrait: {fileID: 189105669}
+  buttonNames:
+  - {fileID: 1221777745}
+  - {fileID: 1371669922}
+  - {fileID: 2116435702}
+  actionButtons:
+  - {fileID: 100410218}
+  - {fileID: 700950155}
+  - {fileID: 415725644}
+  healthBars:
+  - {fileID: 835033340}
+  - {fileID: 1037623192}
+  - {fileID: 1823577148}
+  nameFrames:
+  - {fileID: 1294055125}
+  - {fileID: 1453924298}
+  - {fileID: 1517587954}
+  activeHeroes: []
 --- !u!1 &1675583870
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class MeeleBaseAttack : MeeleAction
         attackCommand.AssignCommand(Damage ,Target.gameObject);
 
         Debug.Log("trigger: " + animationTrigger);
-        attackCommand.AssignAnimation(Performer.GetAnimator(), animationTrigger, actionDuration );
+        attackCommand.AssignAnimation(Performer.gameObject, animationTrigger, actionDuration );
         PlayerCommand.AddCommand(attackCommand);
 
         PlayerMoveCommand returnCommand = new PlayerMoveCommand();

@@ -2,38 +2,56 @@
 
 public class AnimationHandler : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator animator = null;
 
-    public void PlayAnimatonTrigger(GameObject gO, string trigger)
+    private void OnEnable()
     {
-        if (gameObject == gO)
+        AnimationEventController.SetAnimTrigger += PlayAnimatonTrigger;
+        AnimationEventController.SetAnimBool += PlayAnimationBool;
+        AnimationEventController.SetAnimFloat += PlayAnimationFloat;
+        AnimationEventController.SetAnimInt += PlayAnimationInt;
+    }
+
+    public void PlayAnimatonTrigger(EventInfo aei)
+    {
+        if (gameObject == aei.GO)
         {
-            animator.SetTrigger(trigger);
+            animator.SetTrigger(aei.Text);
         }
     }
 
-    public void PlayAnimationBool(GameObject gO, string name, bool status)
+    public void PlayAnimationBool(EventInfo ei)
     {
-        if (gameObject == gO)
+        if (gameObject == ei.GO)
         {
-            animator.SetBool(name, status);
+            AnimationBoolEvent abe = (AnimationBoolEvent)ei;
+            animator.SetBool(abe.Text, abe.Status);
         }
     }
 
-    public void PlayAnimationFloat(GameObject gO, string name, float value)
+    public void PlayAnimationFloat(EventInfo ei)
     {
-        if (gameObject == gO)
+        if (gameObject == ei.GO)
         {
-            animator.SetFloat(name, value);
+            AnimationFloatEvent afe = (AnimationFloatEvent)ei;
+            animator.SetFloat(afe.Text, afe.Value);
         }
     }
 
-    public void PlayAnimationInt(GameObject gO, string name, int value)
+    public void PlayAnimationInt(EventInfo ei)
     {
-        if (gameObject == gO)
+        if (gameObject == ei.GO)
         {
-            animator.SetInteger(name, value);
+            AnimationIntEvent aie = (AnimationIntEvent)ei;
+            animator.SetInteger(aie.Text, aie.Value);
         }
     }
 
+    private void OnDisable()
+    {
+        AnimationEventController.SetAnimTrigger -= PlayAnimatonTrigger;
+        AnimationEventController.SetAnimBool -= PlayAnimationBool;
+        AnimationEventController.SetAnimFloat -= PlayAnimationFloat;
+        AnimationEventController.SetAnimInt -= PlayAnimationInt;
+    }
 }
