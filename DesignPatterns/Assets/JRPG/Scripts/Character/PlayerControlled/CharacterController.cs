@@ -3,17 +3,28 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour, IDamageable
 {
-    [SerializeField] private GameObject target = null;
     [SerializeField] private string heroName = "Gunnar";
     [SerializeField] private float health = 50;
     [SerializeField] private Sprite profile = null;
     [SerializeField] private CharacterAction[] actions = new CharacterAction[3];
+    private Transform target = null;
+    //private List<CharacterAction> actions = new List<CharacterAction>();
     CharacterAction usedAction = null;
     protected bool aliveStatus = true;
 
     public void Start()
     {
         PlaningUI.AssignHero(heroName, health);
+    }
+
+    public string GetName()
+    {
+        return heroName;
+    }
+
+    public void GetNewTarget(Transform trans)
+    {
+        target = trans;
     }
 
     public void UseAction(int index)
@@ -23,7 +34,10 @@ public class CharacterController : MonoBehaviour, IDamageable
         usedAction.Performer = this;
         usedAction.Target = target.transform;
         usedAction.ActivateAction();
-        PlaningUI.ActionUsed(usedAction.ActionName);
+        string actionUpdate = usedAction.Performer.GetComponent<IDamageable>().GetName() + 
+            " used " + usedAction.ActionName + " on " + 
+            usedAction.Target.GetComponent<IDamageable>().GetName();
+        PlaningUI.ActionUsed(actionUpdate);
     }
 
     public Sprite GetProfile()

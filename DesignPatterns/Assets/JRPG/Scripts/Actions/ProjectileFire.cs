@@ -3,9 +3,10 @@
 [CreateAssetMenu(menuName = "ScriptableObject/ProjectileFire")]
 public class ProjectileFire : CharacterAction
 {
-    [SerializeField] GameObject projectile = null;
-    [SerializeField] float damage = 10f;
-    [SerializeField] float speedMod = 2;
+    [SerializeField] protected GameObject projectile = null;
+    [SerializeField] protected string animationTrigger = "";
+    [SerializeField] protected float damage = 10f;
+    [SerializeField] protected float speedMod = 2;
     
     public override void ActivateAction()
     {

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: IceLance
   projectile: {fileID: 3780975458389884957, guid: dfd4b254931b1c344bb1440d7b7dede1, type: 3}
+  animationTrigger: Special
   damage: 20
   speedMod: 2

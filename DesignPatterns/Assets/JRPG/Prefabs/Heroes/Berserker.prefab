@@ -46,15 +46,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd02a16cb62b1b46891c05606b0c736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   heroName: Berserker
   health: 50
   profile: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  actions:
-  - {fileID: 11400000, guid: db3788bfb13646d4883687792bb1e33e, type: 2}
-  - {fileID: 11400000, guid: dd5106c6a795fdb4ebd47a21c357238c, type: 2}
+  actionList:
   - {fileID: 11400000, guid: 2bf76cfc81d13064abee5d3cf8923dff, type: 2}
-  animator: {fileID: 8697459648342678493}
+  - {fileID: 11400000, guid: dd5106c6a795fdb4ebd47a21c357238c, type: 2}
+  - {fileID: 11400000, guid: db3788bfb13646d4883687792bb1e33e, type: 2}
 --- !u!136 &1638990068945555658
 CapsuleCollider:
   m_ObjectHideFlags: 0

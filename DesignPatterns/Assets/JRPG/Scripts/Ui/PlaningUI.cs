@@ -123,5 +123,4 @@ public class PlaningUI : MonoBehaviour
             instance.healthBars[i].value = health;
         }
     }
-
 }

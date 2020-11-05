@@ -8,13 +8,9 @@ using UnityEngine.VR;
 public class CharacterObserver : MonoBehaviour
 {
     private static CharacterObserver instance = null;
-
     public static Action Execute = delegate { };
-
     protected int currentIndex { get; set; } = 0;
-
     [SerializeField] private List<CharacterController> controllableCharacters = new List<CharacterController>();
-
     protected float speed { get; set; } = 1f;
 
     [SerializeField] private Image targetIndicator = null;
@@ -22,6 +18,7 @@ public class CharacterObserver : MonoBehaviour
     private Coroutine indicator = default;
 
     private int characterIndex = 0;
+    private int actionIndex = 0;
 
     private void Awake()
     {
@@ -51,6 +48,18 @@ public class CharacterObserver : MonoBehaviour
         {
             DealDamage(2);
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(HelpComponent.GetMouseRay(), out hit))
+            {
+                if(hit.collider.GetComponent<IDamageable>() != null)
+                {
+                    HelpComponent.TargetAssigner(hit.transform);
+                }
+            }
+        }
     }
 
     private void DealDamage(int i) 
@@ -61,10 +70,20 @@ public class CharacterObserver : MonoBehaviour
 
     public void PerformAbility(int i)
     {
-        Debug.Log(instance.controllableCharacters[instance.characterIndex].transform.name + "is getting its action called");
-        instance.controllableCharacters[instance.characterIndex].UseAction(i);
+        instance.actionIndex = i;
+        HelpComponent.TargetAssigner += instance.controllableCharacters[instance.characterIndex].GetNewTarget;
+        HelpComponent.TargetAssigner += ActionRegistered;
+    }
+
+    private static void ActionRegistered(Transform trans)
+    {
+        HelpComponent.TargetAssigner -= instance.controllableCharacters[instance.characterIndex].GetNewTarget;
+        HelpComponent.TargetAssigner -= ActionRegistered;
+
+        instance.controllableCharacters[instance.characterIndex].UseAction(instance.actionIndex);
         ChangeCharacter();
     }
+
 
     public void UndoAction()
     {
@@ -92,6 +111,7 @@ public class CharacterObserver : MonoBehaviour
     public static void ChangeCharacter()
     {
         instance.characterIndex++;
+        int count = 0;
         if(instance.characterIndex > instance.controllableCharacters.Count - 1)
         {
             PlaningUI.ChangeToExecute();
@@ -100,6 +120,7 @@ public class CharacterObserver : MonoBehaviour
         }
         else if (!instance.controllableCharacters[instance.characterIndex].Alive())
         {
+            count++;
             ChangeCharacter();
         }
         else
@@ -112,6 +133,10 @@ public class CharacterObserver : MonoBehaviour
             Transform target = instance.controllableCharacters[instance.characterIndex].transform;
             instance.indicator = instance.StartCoroutine(instance.Indicator(target));
             PlaningUI.ChangeToNextCharacter(instance.controllableCharacters[instance.characterIndex]);
+        }
+        if(count >= instance.controllableCharacters.Count - 1)
+        {
+            Debug.Log("you died");
         }
     }
 

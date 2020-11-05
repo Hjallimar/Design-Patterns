@@ -9,6 +9,5 @@ public abstract class CharacterAction : ScriptableObject
     public Transform Target { get; set; }
     public CharacterController Performer { get; set; }
     public abstract void ActivateAction();
-
     public abstract void UndoAction();
 }

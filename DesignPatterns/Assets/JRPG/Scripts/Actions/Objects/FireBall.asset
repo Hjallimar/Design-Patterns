@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: FireBall
   projectile: {fileID: 1062513708929780303, guid: 2a5bae833f0fe3449bd33f452e310ef9, type: 3}
+  animationTrigger: AoE
   damage: 10
   speedMod: 2
