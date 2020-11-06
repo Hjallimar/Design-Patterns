@@ -7,7 +7,7 @@ public class Earthquake : MeeleAction
     {
         originPosition = Performer.transform.position;
         PlayerMoveCommand moveCommand = new PlayerMoveCommand();
-        moveCommand.AssignMove(Performer, Performer.transform.position, Target.position);
+        moveCommand.AssignMove(Performer, Performer.position, Target.position);
         PlayerCommand.AddCommand(moveCommand);
 
         AttackCommand attackCommand = new AttackCommand();

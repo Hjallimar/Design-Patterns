@@ -84,6 +84,27 @@ public class CharacterObserver : MonoBehaviour
         ChangeCharacter();
     }
 
+    public static Transform GetEnemyTarget()
+    {
+        List<Transform> active = new List<Transform>();
+        foreach(CharacterController character in instance.controllableCharacters)
+        {
+            if (character.Alive())
+            {
+                active.Add(character.transform);
+            }
+        }
+
+        if(active.Count > 0)
+        {
+            int rand = UnityEngine.Random.Range(0, active.Count);
+            return active[rand];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public void UndoAction()
     {
@@ -104,7 +125,6 @@ public class CharacterObserver : MonoBehaviour
     public void ExecuteCommands()
     {
         Execute();
-        PlayerCommand.ExecuteCommands();
         PlaningUI.ClearList();
     }
 

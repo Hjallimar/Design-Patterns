@@ -108,7 +108,6 @@ public class PlaningUI : MonoBehaviour
         {
             instance.activeHeroes.Add(name);
             int i = instance.activeHeroes.IndexOf(name);
-            Debug.Log(name);
             instance.nameFrames[i].text = name;
             instance.healthBars[i].maxValue = health;
             instance.healthBars[i].value = health;

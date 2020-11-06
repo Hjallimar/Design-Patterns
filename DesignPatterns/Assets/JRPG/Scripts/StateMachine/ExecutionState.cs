@@ -15,19 +15,16 @@ public class ExecutionState : BaseState
     public override void Enter()
     {
         PlayerCommand.ExecutionComplete += ChangeState;
-        Debug.Log("Execution phase entered");
-        //PlayerCommand.ExecuteCommands();
+        PlayerCommand.ExecuteCommands();
     }
 
     private void ChangeState()
     {
-        Debug.Log("Execution Switch state called");
         owner.SwitchState(nextState);
     }
 
     public override void Exit()
     {
         PlayerCommand.ExecutionComplete -= ChangeState;
-        Debug.Log("Exit the Execution state");
     }
 }

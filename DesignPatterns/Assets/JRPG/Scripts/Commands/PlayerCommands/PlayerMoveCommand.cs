@@ -7,7 +7,7 @@ public class PlayerMoveCommand : Command
     protected Vector3 endPos = Vector3.zero;
     protected float timer = 0;
 
-    public virtual void AssignMove(CharacterController performer, Vector3 origin, Vector3 target)
+    public virtual void AssignMove(Transform performer, Vector3 origin, Vector3 target)
     {
         playerTrans = performer.transform;
         startPos = origin;

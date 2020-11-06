@@ -14,18 +14,15 @@ public class PlaningState : BaseState
 
     private void ChangeState()
     {
-        Debug.Log("Planing Switch state called");
         owner.SwitchState(nextState);
     }
 
     public override void Enter()
     {
         CharacterObserver.Execute += ChangeState;
-        Debug.Log("Planing phase entered");
     }
     public override void Exit()
     {
         CharacterObserver.Execute -= ChangeState;
-        Debug.Log("Exit the planing state");
     }
 }

@@ -31,7 +31,7 @@ public class CharacterController : MonoBehaviour, IDamageable
     {
         index = index % (actions.Length);
         usedAction = actions[index];
-        usedAction.Performer = this;
+        usedAction.Performer = transform;
         usedAction.Target = target.transform;
         usedAction.ActivateAction();
         string actionUpdate = usedAction.Performer.GetComponent<IDamageable>().GetName() + 

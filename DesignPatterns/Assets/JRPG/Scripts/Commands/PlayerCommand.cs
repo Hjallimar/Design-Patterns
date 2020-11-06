@@ -31,6 +31,7 @@ public class PlayerCommand : MonoBehaviour
     private bool executeCommands = false;
     private int executeIndex = 0;
     private Coroutine executeCorutine = default;
+    private bool EnemyTurn = false;
 
     public static void AddCommand(Command newCommand)
     {
@@ -51,13 +52,22 @@ public class PlayerCommand : MonoBehaviour
         {
             Instance.executeCommands = true;
             Instance.executeIndex = 0;
-            Instance.executeCorutine = Instance.StartCoroutine(ExecuteMiStuffs());
+            Instance.EnemyTurn = true;
+            Instance.executeCorutine = Instance.StartCoroutine(ExecuteAllCommands());
         }
     }
 
-    private static IEnumerator ExecuteMiStuffs()
+    private static IEnumerator ExecuteAllCommands()
     {
-        Debug.Log("we got'em");
+        while (Instance.executeCommands)
+        {
+            Execute();
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+    }
+
+    private static IEnumerator ExecuteEnemiesCommands()
+    {
         while (Instance.executeCommands)
         {
             Execute();
@@ -70,6 +80,23 @@ public class PlayerCommand : MonoBehaviour
         Instance.executeIndex++;
     }
 
+    public static void Complete()
+    {
+        if (Instance.EnemyTurn)
+        {
+            Instance.executeCommands = true;
+            Instance.executeIndex = 0;
+            EnemyObserver.EnemyAttack();
+            Instance.StartCoroutine(ExecuteEnemiesCommands());
+            Instance.EnemyTurn = false;
+        }
+        else 
+        {
+            ExecutionComplete();
+            CharacterObserver.ResetTurn();
+        }
+    }
+
     private static void Execute()
     {
         if (Instance.executeIndex >= Instance.playerCommands.Count)
@@ -77,8 +104,7 @@ public class PlayerCommand : MonoBehaviour
             Instance.executeCommands = false;
             Instance.executeIndex = 0;
             Instance.playerCommands.Clear();
-            ExecutionComplete();
-            CharacterObserver.ResetTurn();
+            Complete();
         }
         else
         {
